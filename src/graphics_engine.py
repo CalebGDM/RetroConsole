@@ -113,9 +113,9 @@ class GraphicsEngine:
         else:
             self.framebuf.rect(x, y, w, h, color)
             
-    def sprite(self, x, y, sprite, w, h):
-        for dy in range(h):
-            row = sprite[dy]  
-            for dx in range(w):
-                if row & (1 << (w - 1 - dx)):  
-                    self.pixel(x + dx, y + dy, 1) 
+    def sprite(self, sprite):
+        for dy in range(sprite.height):
+            row = sprite.sprite[dy]  
+            for dx in range(sprite.width):
+                if row & (1 << (sprite.width - 1 - dx)):  
+                    self.pixel(sprite.x + dx, sprite.y + dy, 1) 

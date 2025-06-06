@@ -1,4 +1,4 @@
-from GraphicsEngine import  GraphicsEngine
+from graphics_engine import  GraphicsEngine
 from machine import  Pin, I2C
 from engine import Core
 from sprite import Sprite
