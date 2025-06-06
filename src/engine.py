@@ -1,5 +1,5 @@
-from sprite import Sprite
 from machine import Pin
+from animated_sprite import Animated_Sprite
 import time
 class Core:
     def __init__(self, screen):
@@ -16,20 +16,32 @@ class Core:
         self.input_event = None
         self.target_fps = 30
         self.frame_duration = 1 / self.target_fps
+        self.sprites = []
         
     def check_input(self):
         for button_name, button in self.buttons.items():
                 if button.value() == 1:
                     return button_name
-        return None           
+        return None
+    
+    def draw(self):
+        self.screen.clear()
+        for sprite in self.sprites:
+            if isinstance(sprite, Animated_Sprite):
+                sprite.animate()
+            self.screen.sprite(sprite)
+        self.screen.show()
 
     def loop(self):
         while True:
             frame_start = time.time()
             self.input_event = self.check_input()
-            print(self.input_event)
             
+            self.draw()
             frame_time = time.time() - frame_start
             if frame_time < self.frame_duration:
                 time.sleep(self.frame_duration - frame_time)
+                
+    def add_sprite(self, sprite):
+        self.sprites.append(sprite)
             
