@@ -17,6 +17,7 @@ class Core:
         self.target_fps = 30
         self.frame_duration = 1 / self.target_fps
         self.sprites = []
+        self.paused = False 
         
     def check_input(self):
         for button_name, button in self.buttons.items():
@@ -36,6 +37,11 @@ class Core:
         while True:
             frame_start = time.time()
             self.input_event = self.check_input()
+           
+            for obj in self.objects:
+                obj.update(self.input_event)
+                obj.sprite.x = obj.x
+                obj.sprite.y = obj.y
             
             self.draw()
             frame_time = time.time() - frame_start
@@ -44,4 +50,8 @@ class Core:
                 
     def add_sprite(self, sprite):
         self.sprites.append(sprite)
+        
+    def add_object(self, game_object):
+        self.objects.append(game_object)
+    
             
