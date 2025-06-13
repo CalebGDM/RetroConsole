@@ -1,47 +1,32 @@
 from machine import Pin
-from animated_sprite import Animated_Sprite
+from sprite import Animated_Sprite
+from input_handler import Input_Handler
 import time
-class Core:
+class PicoEngine:
     def __init__(self, screen):
         self.screen = screen
         self.objects = []
-        self.buttons = {
-            'A': Pin(17, Pin.IN, Pin.PULL_DOWN),
-            'B': Pin(18, Pin.IN, Pin.PULL_DOWN),
-            'UP': Pin(19, Pin.IN, Pin.PULL_DOWN),
-            'DOWN': Pin(20, Pin.IN, Pin.PULL_DOWN),
-            'LEFT': Pin(21, Pin.IN, Pin.PULL_DOWN),
-            'RIGHT': Pin(22, Pin.IN, Pin.PULL_DOWN)
-        }
-        self.input_event = None
+        self.input_handler = Input_Handler()
         self.target_fps = 30
         self.frame_duration = 1 / self.target_fps
         self.sprites = []
         self.paused = False 
         
-    def check_input(self):
-        for button_name, button in self.buttons.items():
-                if button.value() == 1:
-                    return button_name
-        return None
-    
     def draw(self):
         self.screen.clear()
         for sprite in self.sprites:
             if isinstance(sprite, Animated_Sprite):
-                sprite.animate()
+                sprite.update()
             self.screen.sprite(sprite)
         self.screen.show()
 
     def loop(self):
         while True:
             frame_start = time.time()
-            self.input_event = self.check_input()
+            self.input_handler.scan()
            
             for obj in self.objects:
-                obj.update(self.input_event)
-                obj.sprite.x = obj.x
-                obj.sprite.y = obj.y
+                obj.update(self.input_handler.state)
             
             self.draw()
             frame_time = time.time() - frame_start
@@ -53,5 +38,6 @@ class Core:
         
     def add_object(self, game_object):
         self.objects.append(game_object)
+        self.add_sprite(game_object.sprite)
     
             

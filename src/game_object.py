@@ -6,5 +6,5 @@ class Game_Object:
         self.sprite.x = self.x
         self.sprite.y = self.y
         
-    def update(self):
+    def update(self, input_event):
         pass

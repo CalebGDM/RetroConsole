@@ -115,7 +115,7 @@ class GraphicsEngine:
             
     def sprite(self, sprite):
         for dy in range(sprite.height):
-            row = sprite.sprite[dy]  
+            row = sprite._sprite_data[dy]  
             for dx in range(sprite.width):
                 if row & (1 << (sprite.width - 1 - dx)):  
                     self.pixel(sprite.x + dx, sprite.y + dy, 1) 
