@@ -6,9 +6,6 @@ class Sprite:
         self.width = w
         self.height = h
     
-    def move(self, dx, dy):
-        self.x += dx
-        self.y += dy
         
 class Animated_Sprite(Sprite):
     def __init__(self, x, y, animations, default_animation, w, h, speed):

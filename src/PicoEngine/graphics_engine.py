@@ -118,4 +118,4 @@ class GraphicsEngine:
             row = sprite._sprite_data[dy]  
             for dx in range(sprite.width):
                 if row & (1 << (sprite.width - 1 - dx)):  
-                    self.pixel(sprite.x + dx, sprite.y + dy, 1) 
+                    self.pixel(int(sprite.x) + dx, int(sprite.y) + dy, 1) 

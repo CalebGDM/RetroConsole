@@ -1,7 +1,7 @@
 from machine import Pin
 class Input_Handler:
     BUTTONS = {
-            'A': Pin(17, Pin.IN, Pin.PULL_DOWN),
+            'A': Pin(14, Pin.IN, Pin.PULL_DOWN),
             'B': Pin(18, Pin.IN, Pin.PULL_DOWN),
             'UP': Pin(19, Pin.IN, Pin.PULL_DOWN),
             'DOWN': Pin(20, Pin.IN, Pin.PULL_DOWN),
